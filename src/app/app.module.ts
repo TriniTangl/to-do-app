@@ -11,6 +11,7 @@ import {ToDoComponent} from './to-do/to-do.component';
 import {ToDoEditComponent} from './to-do-edit/to-do-edit.component';
 import {ToDoListComponent} from './to-do-list/to-do-list.component';
 import {FloatingButtonComponent} from './floating-button/floating-button.component';
+import {NotFoundComponent} from './not-found/not-found.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import {FloatingButtonComponent} from './floating-button/floating-button.compone
         ToDoComponent,
         ToDoEditComponent,
         ToDoListComponent,
-        FloatingButtonComponent
+        FloatingButtonComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,
