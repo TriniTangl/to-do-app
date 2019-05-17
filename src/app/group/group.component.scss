@@ -1,0 +1,40 @@
+mat-card {
+    &.group-card {
+        width: calc(100% - 16px * 2 - 10px * 2);
+        height: 135px;
+        margin: 10px;
+        cursor: pointer;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-tap-highlight-color: transparent;
+
+        mat-card-title {
+            overflow: hidden;
+            font-size: 18px;
+            text-align: center;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        mat-card-content {
+            .right {
+                width: 100%;
+
+                mat-chip-list {
+                    float: right;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 475px) {
+    mat-card {
+        &.group-card {
+            width: calc(100% - 16px * 2 - 10px * 2);
+        }
+    }
+}

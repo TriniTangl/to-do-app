@@ -1,0 +1,21 @@
+<mat-card class="group-card" matRipple [matRippleCentered]="true">
+    <mat-card-title>{{ group.name }}</mat-card-title>
+    <mat-card-content>
+        <mat-list role="list">
+            <mat-list-item role="listitem">Active
+                <div class="right">
+                    <mat-chip-list role="list">
+                        <mat-chip color="primary" role="listitem" selected>{{ activeCounter }}</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </mat-list-item>
+            <mat-list-item role="listitem">Completed
+                <div class="right">
+                    <mat-chip-list>
+                        <mat-chip color="accent" role="listitem" selected>{{ completedCounter }}</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

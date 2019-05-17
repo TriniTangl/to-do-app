@@ -1,0 +1,47 @@
+.title {
+    text-align: center;
+}
+
+.group-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0 auto;
+
+    app-group {
+        flex-basis: 200px;
+    }
+
+    @media screen and (max-width: 475px) {
+        app-group {
+            flex-basis: 100%;
+        }
+    }
+
+}
+
+@media screen and (max-width: 1039px) {
+    .group-list {
+        width: 800px;
+    }
+}
+
+@media screen and (max-width: 839px) {
+    .group-list {
+        width: 600px;
+    }
+}
+
+@media screen and (max-width: 639px) {
+    .group-list {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .group-list {
+        width: 100%;
+    }
+}
+

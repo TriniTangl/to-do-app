@@ -1,3 +1,23 @@
-<p>
-    ToDoListComponent
-</p>
+<h1 class="title">Group "Work"</h1>
+<mat-card class="list-item info-card">
+    <mat-checkbox>
+        <strong>Complete all task</strong>
+    </mat-checkbox>
+    <strong class="active-number">6 items left</strong>
+</mat-card>
+<app-to-do></app-to-do>
+<app-to-do></app-to-do>
+<app-to-do></app-to-do>
+<app-to-do></app-to-do>
+<mat-card class="list-item info-card">
+    <div class="container-button">
+        <button class="filter-button" mat-stroked-button>All
+        </button>
+        <button class="filter-button" mat-stroked-button>Active
+        </button>
+        <button class="filter-button" mat-stroked-button>Completed
+        </button>
+    </div>
+    <button class="clear-button" mat-stroked-button>Clear completed</button>
+</mat-card>
+<app-floating-button></app-floating-button>

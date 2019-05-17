@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AngularMaterialModule} from './angular-material/angular-material.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GroupComponent} from './group/group.component';
 import {GroupEditComponent} from './group-edit/group-edit.component';
 import {GroupListComponent} from './group-list/group-list.component';
@@ -29,8 +29,10 @@ import {NotFoundComponent} from './not-found/not-found.component';
         BrowserModule,
         AppRoutingModule,
         AngularMaterialModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule
     ],
+    entryComponents: [GroupEditComponent],
     providers: [],
     bootstrap: [AppComponent]
 })

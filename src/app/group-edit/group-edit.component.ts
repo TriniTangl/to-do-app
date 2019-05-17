@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {DialogData} from '../interfaces';
 
 @Component({
     selector: 'app-group-edit',
@@ -7,10 +9,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class GroupEditComponent implements OnInit {
 
-    constructor() {
+    constructor(
+        private dialogRef: MatDialogRef<GroupEditComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
+    public closeDialog(): void {
+        this.dialogRef.close();
+    }
 }

@@ -1,0 +1,51 @@
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    .text-item {
+        overflow: hidden;
+        flex: 1;
+        margin: 0 7px;
+        padding: 3px;
+
+        &.completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+    }
+
+    .container-button {
+        .control-button {
+            width: 26px;
+            height: 26px;
+            margin-right: 5px;
+            line-height: 16px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            mat-icon {
+                width: 16px;
+                height: 16px;
+                font-size: 16px;
+                font-weight: bold;
+                line-height: 16px;
+            }
+        }
+
+        @media screen and (max-width: 484px) {
+            .control-button {
+                display: block;
+                margin-right: 0;
+                margin-bottom: 5px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

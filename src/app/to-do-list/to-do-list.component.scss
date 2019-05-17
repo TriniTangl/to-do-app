@@ -1,0 +1,47 @@
+.title {
+    text-align: center;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    &.info-card {
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        .container-button {
+            .filter-button {
+                margin-right: 5px;
+                line-height: 28px;
+                border-color: transparent;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                &.active {
+                    border-color: rgba(0, 0, 0, .12);
+                }
+            }
+
+            @media screen and (max-width: 484px) {
+                .filter-button {
+                    display: block;
+                    margin-right: 0;
+                    margin-bottom: 5px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .clear-button {
+            line-height: 28px;
+        }
+    }
+}
