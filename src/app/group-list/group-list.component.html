@@ -1,5 +1,5 @@
 <h1 class="title">List of groups</h1>
 <div class="group-list">
-    <app-group *ngFor="let group of groupList" [group]="group"></app-group>
+    <app-group (changeGroupEmitter)="changeGroup($event)" *ngFor="let group of groupList" [group]="group"></app-group>
 </div>
-<app-floating-button (clickEmitter)="openDialog($event)"></app-floating-button>
+<app-floating-button (clickEmitter)="openDialog()"></app-floating-button>

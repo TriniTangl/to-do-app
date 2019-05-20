@@ -1,7 +1,6 @@
 mat-card {
     &.group-card {
         width: calc(100% - 16px * 2 - 10px * 2);
-        height: 135px;
         margin: 10px;
         cursor: pointer;
         -moz-user-select: none;
@@ -12,29 +11,76 @@ mat-card {
         -webkit-tap-highlight-color: transparent;
 
         mat-card-title {
-            overflow: hidden;
+            width: 145px;
+            margin: 0 auto;
             font-size: 18px;
             text-align: center;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+
+            a {
+                overflow: hidden;
+                max-width: 100%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
         }
 
         mat-card-content {
-            .right {
-                width: 100%;
+            mat-list {
+                padding-top: 0;
 
-                mat-chip-list {
-                    float: right;
+                mat-list-item {
+                    height: 36px;
+
+                    .right {
+                        width: 100%;
+
+                        mat-chip-list {
+                            float: right;
+
+                            mat-chip {
+                                height: unset;
+                                min-height: unset;
+                                margin: 0;
+                                padding: 4px 8px;
+                            }
+                        }
+                    }
+
                 }
+            }
+        }
+
+        mat-card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+@media screen and (min-width: 401px) and (max-width: 475px) {
+    mat-card {
+        &.group-card {
+            width: calc(100% - 16px * 2 - 10px * 2);
+
+            mat-card-title {
+                width: 300px;
+                margin: 0 auto;
             }
         }
     }
 }
 
-@media screen and (max-width: 475px) {
+@media screen and (max-width: 400px) {
     mat-card {
         &.group-card {
             width: calc(100% - 16px * 2 - 10px * 2);
+
+            mat-card-title {
+                width: 220px;
+                margin: 0 auto;
+            }
         }
     }
 }

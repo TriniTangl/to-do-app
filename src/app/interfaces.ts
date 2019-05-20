@@ -16,8 +16,20 @@ export interface ErrorResponse {
     message: string;
 }
 
-export interface DialogData {
-    id: number;
+export interface DialogDataGroup {
     name: string;
-    tasks: Array<ToDo>;
+    isEdit: boolean;
 }
+
+export interface ParametersGroup {
+    action: string;
+    id: number;
+}
+
+export interface DialogParameters {
+    title: string;
+    label: string;
+    button: string;
+}
+
+

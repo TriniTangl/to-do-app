@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {InitializationService} from '../services/initialization.service';
 import {LocalStorageService} from '../services/local-storage.service';
-import {ErrorResponse, Group} from '../interfaces';
+import {ErrorResponse, Group, ParametersGroup} from '../interfaces';
 import {MatDialog} from '@angular/material';
 import {GroupEditComponent} from '../group-edit/group-edit.component';
 
@@ -38,15 +38,48 @@ export class GroupListComponent implements OnInit {
         this.updateGroupList();
     }
 
-    public openDialog(isClicked: boolean): void {
+    public openDialog(): void {
         const dialogRef = this.dialog.open(GroupEditComponent, {
             width: '300px',
-            data: {name: this.nameGroup}
+            data: {name, isEdit: false}
         });
         dialogRef.afterClosed().subscribe(result => {
-            this.nameGroup = result;
-            console.log(this.nameGroup);
+            if (result) {
+                this.groupList.push({
+                    id: new Date().getTime(),
+                    name: result,
+                    tasks: []
+                });
+                this.updateLocalStorageData();
+            }
         });
+    }
+
+    public changeGroup(parameters: ParametersGroup): void {
+        switch (parameters.action) {
+            case 'edit': {
+                this.nameGroup = this.groupList[this.findTaskIndex(parameters.id)].name;
+                const dialogRef = this.dialog.open(GroupEditComponent, {
+                    width: '300px',
+                    data: {name: this.nameGroup, isEdit: true}
+                });
+                dialogRef.afterClosed().subscribe(result => {
+                    if (result) {
+                        this.groupList[this.findTaskIndex(parameters.id)].name = result;
+                        this.updateLocalStorageData();
+                    }
+                });
+                break;
+            }
+            case 'remove': {
+                this.groupList.splice(this.findTaskIndex(parameters.id), 1);
+                this.updateLocalStorageData();
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 
     private updateGroupList(): void {
@@ -59,5 +92,7 @@ export class GroupListComponent implements OnInit {
         LocalStorageService.setData(this.storageName, this.groupList);
     }
 
-
+    private findTaskIndex(id: number): number {
+        return this.groupList.findIndex(item => item.id === id);
+    }
 }

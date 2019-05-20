@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {DialogData} from '../interfaces';
+import {DialogDataGroup, DialogParameters} from '../interfaces';
 
 @Component({
     selector: 'app-group-edit',
@@ -8,15 +8,22 @@ import {DialogData} from '../interfaces';
     styleUrls: ['./group-edit.component.scss']
 })
 export class GroupEditComponent implements OnInit {
+    public dialogParameters: DialogParameters;
 
     constructor(
         private dialogRef: MatDialogRef<GroupEditComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        @Inject(MAT_DIALOG_DATA) public data: DialogDataGroup) {
     }
 
-    ngOnInit() { }
-
-    public closeDialog(): void {
-        this.dialogRef.close();
+    ngOnInit() {
+        this.dialogParameters = this.data.isEdit ? {
+            title: 'Edit group',
+            label: 'Name of group',
+            button: 'Save'
+        } : this.dialogParameters = {
+            title: 'New group',
+            label: 'Name of new group',
+            button: 'Create'
+        };
     }
 }

@@ -1,12 +1,12 @@
-<h1 mat-dialog-title>Create new group</h1>
+<h1 mat-dialog-title>{{ dialogParameters.title }}</h1>
 <div mat-dialog-content>
-    <p>Name of new group</p>
-    <mat-form-field>
-        <input matInput [(ngModel)]="data.name">
+    <mat-form-field appearance="outline" class="input-task">
+        <mat-label>{{ dialogParameters.label }}</mat-label>
+        <input [(ngModel)]="data.name" matInput name="text-new-task">
     </mat-form-field>
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="closeDialog()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Create</button>
+<div mat-dialog-actions class="button-block">
+    <button mat-stroked-button (click)="dialogRef.close()">Cancel</button>
+    <button mat-flat-button color="accent" [mat-dialog-close]="data.name">{{ dialogParameters.button }}</button>
 </div>
 

@@ -1,21 +1,38 @@
-<mat-card class="group-card" matRipple [matRippleCentered]="true">
-    <mat-card-title>{{ group.name }}</mat-card-title>
+<mat-card class="group-card">
+    <mat-card-title>
+        <a mat-stroked-button routerLink="{{ group.id }}">{{ group.name }}</a>
+    </mat-card-title>
     <mat-card-content>
         <mat-list role="list">
+            <mat-list-item role="listitem">All
+                <div class="right">
+                    <mat-chip-list role="list">
+                        <mat-chip color="primary" role="listitem" selected>{{ allCounter }}</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </mat-list-item>
             <mat-list-item role="listitem">Active
                 <div class="right">
                     <mat-chip-list role="list">
-                        <mat-chip color="primary" role="listitem" selected>{{ activeCounter }}</mat-chip>
+                        <mat-chip color="accent" role="listitem" selected>{{ activeCounter }}</mat-chip>
                     </mat-chip-list>
                 </div>
             </mat-list-item>
             <mat-list-item role="listitem">Completed
                 <div class="right">
                     <mat-chip-list>
-                        <mat-chip color="accent" role="listitem" selected>{{ completedCounter }}</mat-chip>
+                        <mat-chip role="listitem">{{ completedCounter }}</mat-chip>
                     </mat-chip-list>
                 </div>
             </mat-list-item>
         </mat-list>
     </mat-card-content>
+    <mat-card-actions>
+        <button mat-stroked-button color="primary" (click)="changeGroup('edit')">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-stroked-button color="warn" (click)="changeGroup('remove')">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </mat-card-actions>
 </mat-card>

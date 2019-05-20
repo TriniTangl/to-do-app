@@ -6,13 +6,9 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
     styleUrls: ['./floating-button.component.scss']
 })
 export class FloatingButtonComponent implements OnInit {
-    @Output() clickEmitter = new EventEmitter<boolean>();
+    @Output() clickEmitter = new EventEmitter();
 
     constructor() { }
 
     ngOnInit() { }
-
-    public click(isClicked: boolean): void {
-        this.clickEmitter.emit(isClicked);
-    }
 }
