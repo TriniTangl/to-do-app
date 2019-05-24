@@ -29,7 +29,7 @@ export class GroupComponent implements OnInit {
         });
     }
 
-    private getCount(type: boolean): number {
-        return this.group.tasks.filter(item => item.active === type).length;
+    private getCount(isActive: boolean): number {
+        return this.group.tasks.filter(item => item.active === isActive).length;
     }
 }

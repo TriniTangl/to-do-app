@@ -52,7 +52,7 @@ export class ToDoListComponent implements OnInit {
                 break;
             }
             case 'editData': {
-                this.openDialog(true, this.group.tasks[index]);
+                this.openDialog(this.group.tasks[index]);
                 break;
             }
             case 'removeTask': {
@@ -67,14 +67,14 @@ export class ToDoListComponent implements OnInit {
         this.updateLocalStorageData();
     }
 
-    public openDialog(isEdit: boolean, task?: ToDoItem): void {
+    public openDialog(task?: ToDoItem): void {
         const dialogRef = this.dialog.open(ToDoEditComponent, {
             width: '300px',
-            data: {task: isEdit ? task : null, isEdit}
+            data: {task: task ? task : null}
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                if (isEdit) {
+                if (task) {
                     this.group.tasks[this.findArrayIndex(this.group.tasks, result.id)] = result;
                 } else {
                     this.group.tasks.push(result);

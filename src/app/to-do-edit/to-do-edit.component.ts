@@ -24,7 +24,7 @@ export class ToDoEditComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dialogParameters = this.data.isEdit ? {
+        this.dialogParameters = this.data.task ? {
             title: 'Edit task',
             labels: [
                 'Edit new task',
@@ -41,7 +41,7 @@ export class ToDoEditComponent implements OnInit {
             ],
             button: 'Create'
         };
-        if (this.data.isEdit) {
+        if (this.data.task) {
             this.taskForm.setValue({
                 taskText: this.data.task.text,
                 taskDate: formatDate(this.data.task.deadline, 'yyyy-MM-dd', 'en-US'),
@@ -52,8 +52,8 @@ export class ToDoEditComponent implements OnInit {
 
     public createResponse(): ToDoItem {
         return {
-            id: this.data.isEdit ? this.data.task.id : new Date().getTime(),
-            active: this.data.isEdit ? this.data.task.active : true,
+            id: this.data.task ? this.data.task.id : new Date().getTime(),
+            active: this.data.task ? this.data.task.active : true,
             text: this.taskForm.value.taskText,
             deadline: new Date(`${this.taskForm.value.taskDate} ${this.taskForm.value.taskTime}`).getTime()
         };

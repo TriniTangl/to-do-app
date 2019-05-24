@@ -24,7 +24,6 @@ export interface ParametersEditing {
 export interface DialogData {
     task?: ToDoItem;
     group?: GroupItem;
-    isEdit: boolean;
 }
 
 export interface DialogParameters {

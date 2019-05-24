@@ -26,26 +26,25 @@ export class GroupListComponent implements OnInit {
             this.initializationService.getInitialData()
                 .subscribe(
                     (data: Array<GroupItem>) => {
-                        LocalStorageService.setData('TasksDB', data);
+                        LocalStorageService.setData(this.storageName, data);
                         this.updateGroupList();
                     },
                     (error: HttpErrorResponse) => {
-                        alert(`Status: ${error.status}\nMessage: ${error.message}`);
-                        console.log(error);
+                        console.error(`Status: ${error.status}\nMessage: ${error.message}`);
                     }
                 );
         }
         this.updateGroupList();
     }
 
-    public openDialog(isEdit: boolean, group?: GroupItem): void {
+    public openDialog(group?: GroupItem): void {
         const dialogRef = this.dialog.open(GroupEditComponent, {
             width: '300px',
-            data: {group: isEdit ? group : null, isEdit}
+            data: {group: group ? group : null}
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                if (isEdit) {
+                if (group) {
                     this.groupList[this.findTaskIndex(result.id)] = result;
                 } else {
                     this.groupList.push(result);
@@ -59,7 +58,7 @@ export class GroupListComponent implements OnInit {
         const index: number = this.findTaskIndex(parameters.id);
         switch (parameters.action) {
             case 'edit': {
-                this.openDialog(true, this.groupList[index]);
+                this.openDialog(this.groupList[index]);
                 break;
             }
             case 'remove': {

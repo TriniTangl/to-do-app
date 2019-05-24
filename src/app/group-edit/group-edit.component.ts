@@ -21,7 +21,7 @@ export class GroupEditComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dialogParameters = this.data.isEdit ? {
+        this.dialogParameters = this.data.group ? {
             title: 'Edit group',
             labels: ['Name of group'],
             button: 'Save'
@@ -30,7 +30,7 @@ export class GroupEditComponent implements OnInit {
             labels: ['Name of new group'],
             button: 'Create'
         };
-        if (this.data.isEdit) {
+        if (this.data.group) {
             this.groupForm.setValue({
                 nameGroup: this.data.group.name
             });
@@ -39,9 +39,9 @@ export class GroupEditComponent implements OnInit {
 
     public createResponse(): GroupItem {
         return {
-            id: this.data.isEdit ? this.data.group.id : new Date().getTime(),
+            id: this.data.group ? this.data.group.id : new Date().getTime(),
             name: this.groupForm.value.nameGroup,
-            tasks: this.data.isEdit ? this.data.group.tasks : []
+            tasks: this.data.group ? this.data.group.tasks : []
         };
     }
 }

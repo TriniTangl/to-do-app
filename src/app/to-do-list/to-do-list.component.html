@@ -29,4 +29,4 @@
         {{ activeTasksCount }} items left</strong>
 </mat-card>
 <app-to-do (editTaskEmitter)="editTaskList($event)" *ngFor="let item of renderList.reverse()" [task]="item"></app-to-do>
-<app-floating-button (clickEmitter)="openDialog(false)"></app-floating-button>
+<app-floating-button (clickEmitter)="openDialog()"></app-floating-button>

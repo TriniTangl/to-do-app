@@ -2,4 +2,4 @@
 <div class="group-list">
     <app-group (changeGroupEmitter)="changeGroup($event)" *ngFor="let item of groupList" [group]="item"></app-group>
 </div>
-<app-floating-button (clickEmitter)="openDialog(false)"></app-floating-button>
+<app-floating-button (clickEmitter)="openDialog()"></app-floating-button>
