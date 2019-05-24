@@ -1,35 +1,41 @@
-export interface ToDo {
+export interface ToDoItem {
     id: number;
     active: boolean;
     text: string;
     deadline: number;
 }
 
-export interface Group {
+export interface GroupItem {
     id: number;
     name: string;
-    tasks: Array<ToDo>;
+    tasks: Array<ToDoItem>;
 }
 
-export interface ErrorResponse {
+export interface HttpErrorResponse {
     status: number;
     message: string;
 }
 
-export interface DialogDataGroup {
-    name: string;
-    isEdit: boolean;
-}
-
-export interface ParametersGroup {
+export interface ParametersEditing {
     action: string;
     id: number;
 }
 
+export interface DialogData {
+    task?: ToDoItem;
+    group?: GroupItem;
+    isEdit: boolean;
+}
+
 export interface DialogParameters {
     title: string;
-    label: string;
+    labels: Array<string>;
     button: string;
 }
 
-
+export interface FilterStatus {
+    all: boolean;
+    today: boolean;
+    active: boolean;
+    completed: boolean;
+}

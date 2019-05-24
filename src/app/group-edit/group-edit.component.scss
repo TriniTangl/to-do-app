@@ -2,10 +2,12 @@ h1 {
     text-align: center;
 }
 
-.input-task {
-    width: 100%;
-}
+.form-block {
+    .input-task {
+        width: 100%;
+    }
 
-.button-block {
-    justify-content: space-between;
+    .button-block {
+        justify-content: space-between;
+    }
 }

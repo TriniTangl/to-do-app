@@ -4,16 +4,34 @@
     justify-content: space-between;
     margin: 10px 0;
 
-    .text-item {
+    &.inactive {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .container-text {
         overflow: hidden;
         flex: 1;
         margin: 0 7px;
-        padding: 3px;
+        padding: 0 3px;
+        font-size: 14px;
 
-        &.completed {
-            text-decoration: line-through;
-            opacity: 0.5;
+        .date-item {
+            display: block;
+            margin-bottom: 5px;
+            color: rgba(0, 0, 0, 0.54);
+
+            &.inactive {
+                color: rgba(255, 0, 0, 1);
+            }
         }
+
+        .text-item {
+            &.completed {
+                text-decoration: line-through;
+                opacity: 0.5;
+            }
+        }
+
     }
 
     .container-button {

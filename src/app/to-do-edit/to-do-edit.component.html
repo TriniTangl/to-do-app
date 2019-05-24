@@ -1,26 +1,31 @@
-<form [formGroup]="" class="form-block" novalidate>
-    <mat-form-field appearance="outline" class="input-task">
-        <mat-label>Create new task</mat-label>
-        <input matInput placeholder="What needs to be done?" type="text">
-        <mat-hint class="error">Error place</mat-hint>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="input-task input-small">
-        <mat-label>Enter date</mat-label>
-        <input matInput type="date">
-        <mat-hint class="error">Error place</mat-hint>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="input-task input-small input-right">
-        <mat-label>Enter time</mat-label>
-        <input matInput type="time">
-        <mat-hint class="error">Error place</mat-hint>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="input-task">
-        <mat-label>Select group</mat-label>
-        <mat-select>
-            <mat-option value="option">Option</mat-option>
-        </mat-select>
-        <mat-hint class="error">Error place</mat-hint>
-    </mat-form-field>
-    <button class="create-button" color="primary" mat-raised-button>Create</button>
-
+<h1 mat-dialog-title>{{ dialogParameters.title }}</h1>
+<form [formGroup]="taskForm" class="form-block" novalidate>
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline" class="input-task textarea">
+            <mat-label>{{ dialogParameters.labels[0] }}</mat-label>
+            <textarea formControlName="taskText" matInput placeholder="What needs to be done?" rows="4"></textarea>
+            <mat-hint *ngIf="taskForm.controls['taskText'].invalid && taskForm.controls['taskText'].touched"
+                      class="error">Please enter the text
+            </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-task">
+            <mat-label>{{ dialogParameters.labels[1] }}</mat-label>
+            <input formControlName="taskDate" matInput type="date">
+            <mat-hint *ngIf="taskForm.controls.taskDate.invalid && taskForm.controls.taskDate.touched"
+                      class="error">Please select a date
+            </mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-task">
+            <mat-label>{{ dialogParameters.labels[2] }}</mat-label>
+            <input formControlName="taskTime" matInput type="time">
+            <mat-hint *ngIf="taskForm.controls['taskTime'].invalid && taskForm.controls['taskTime'].touched"
+                      class="error">Please enter the time
+            </mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="button-block" mat-dialog-actions>
+        <button (click)="dialogRef.close()" mat-stroked-button type="button">Cancel</button>
+        <button [disabled]="taskForm.invalid" [mat-dialog-close]="createResponse()" color="accent"
+                mat-flat-button>{{ dialogParameters.button }}</button>
+    </div>
 </form>

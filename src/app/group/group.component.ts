@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Group, ParametersGroup} from '../interfaces';
+import {GroupItem, ParametersEditing} from '../interfaces';
 
 @Component({
     selector: 'app-group',
@@ -7,24 +7,25 @@ import {Group, ParametersGroup} from '../interfaces';
     styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
-    @Input() group: Group;
-    @Output() changeGroupEmitter = new EventEmitter<ParametersGroup>();
+    @Input() group: GroupItem;
+    @Output() changeGroupEmitter = new EventEmitter<ParametersEditing>();
     public allCounter: number;
     public activeCounter: number;
     public completedCounter: number;
 
-    constructor() { }
+    constructor() {
+    }
 
     ngOnInit() {
         this.allCounter = this.group.tasks.length;
-        this.activeCounter = this.getCount(false);
-        this.completedCounter = this.getCount(true);
+        this.activeCounter = this.getCount(true);
+        this.completedCounter = this.getCount(false);
     }
 
-    public changeGroup(actionMethod: string): void {
+    public changeGroup(action: string): void {
         this.changeGroupEmitter.emit({
-            action: actionMethod,
-            id: this.group.id
+            id: this.group.id,
+            action
         });
     }
 

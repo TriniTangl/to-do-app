@@ -32,7 +32,10 @@ import {NotFoundComponent} from './not-found/not-found.component';
         ReactiveFormsModule,
         FormsModule
     ],
-    entryComponents: [GroupEditComponent],
+    entryComponents: [
+        GroupEditComponent,
+        ToDoEditComponent
+    ],
     providers: [],
     bootstrap: [AppComponent]
 })

@@ -1,12 +1,19 @@
 <h1 mat-dialog-title>{{ dialogParameters.title }}</h1>
-<div mat-dialog-content>
-    <mat-form-field appearance="outline" class="input-task">
-        <mat-label>{{ dialogParameters.label }}</mat-label>
-        <input [(ngModel)]="data.name" matInput name="text-new-task">
-    </mat-form-field>
-</div>
-<div mat-dialog-actions class="button-block">
-    <button mat-stroked-button (click)="dialogRef.close()">Cancel</button>
-    <button mat-flat-button color="accent" [mat-dialog-close]="data.name">{{ dialogParameters.button }}</button>
-</div>
+<form [formGroup]="groupForm" class="form-block">
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline" class="input-task">
+            <mat-label>{{ dialogParameters.labels[0] }}</mat-label>
+            <input formControlName="nameGroup" matInput name="text-new-task">
+            <mat-hint *ngIf="groupForm.controls['nameGroup'].invalid && groupForm.controls['nameGroup'].touched"
+                      class="error">Please enter the name
+            </mat-hint>
+        </mat-form-field>
+    </div>
+    <div class="button-block" mat-dialog-actions>
+        <button (click)="dialogRef.close()" mat-stroked-button type="button">Cancel</button>
+        <button [disabled]="groupForm.invalid" [mat-dialog-close]="createResponse()" color="accent"
+                mat-flat-button>{{ dialogParameters.button }}</button>
+    </div>
+</form>
+
 

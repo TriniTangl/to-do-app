@@ -1,23 +1,32 @@
+<a mat-stroked-button routerLink="/groups">
+    <mat-icon>arrow_back_ios</mat-icon>
+    Go back</a>
 <h1 class="title">Group "{{ group.name }}"</h1>
-<mat-card class="list-item info-card">
-    <mat-checkbox>
-        <strong>Complete all task</strong>
-    </mat-checkbox>
-    <strong class="active-number">6 items left</strong>
-</mat-card>
-<app-to-do></app-to-do>
-<app-to-do></app-to-do>
-<app-to-do></app-to-do>
-<app-to-do></app-to-do>
-<mat-card class="list-item info-card">
+<mat-card class="info-card">
     <div class="container-button">
-        <button class="filter-button" mat-stroked-button>All
+        <button (click)="filterTask('all')" [class.active]="filters.all"
+                class="filter-button" mat-stroked-button>All
         </button>
-        <button class="filter-button" mat-stroked-button>Active
+        <button (click)="filterTask('today')" [class.active]="filters.today"
+                class="filter-button" mat-stroked-button>Today
         </button>
-        <button class="filter-button" mat-stroked-button>Completed
+        <button (click)="filterTask('active')" [class.active]="filters.active"
+                class="filter-button" mat-stroked-button>Active
+        </button>
+        <button (click)="filterTask('completed')" [class.active]="filters.completed"
+                class="filter-button" mat-stroked-button>Completed
         </button>
     </div>
-    <button class="clear-button" mat-stroked-button>Clear completed</button>
+    <button (click)="clearCompletedTasks()" [style.display]="filters.active ? 'none' : 'block'" class="clear-button"
+            mat-stroked-button>Clear completed
+    </button>
 </mat-card>
-<app-floating-button></app-floating-button>
+<mat-card class="info-card">
+    <mat-checkbox #matCheckbox (change)="changeAllTasksStatus($event)">
+        <strong>Complete all task</strong>
+    </mat-checkbox>
+    <strong [style.display]="filters.completed ? 'none' : 'block'" class="active-number">
+        {{ activeTasksCount }} items left</strong>
+</mat-card>
+<app-to-do (editTaskEmitter)="editTaskList($event)" *ngFor="let item of renderList.reverse()" [task]="item"></app-to-do>
+<app-floating-button (clickEmitter)="openDialog(false)"></app-floating-button>

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material';
 import {InitializationService} from '../services/initialization.service';
 import {LocalStorageService} from '../services/local-storage.service';
-import {ErrorResponse, Group, ParametersGroup} from '../interfaces';
-import {MatDialog} from '@angular/material';
 import {GroupEditComponent} from '../group-edit/group-edit.component';
+import {GroupItem, HttpErrorResponse, ParametersEditing} from '../interfaces';
 
 @Component({
     selector: 'app-group-list',
@@ -11,26 +11,26 @@ import {GroupEditComponent} from '../group-edit/group-edit.component';
     styleUrls: ['./group-list.component.scss']
 })
 export class GroupListComponent implements OnInit {
-    public groupList: Array<Group>;
+    public groupList: Array<GroupItem>;
     private readonly storageName: string;
-    private nameGroup: string;
 
     constructor(
         private initializationService: InitializationService,
         private dialog: MatDialog) {
-        this.groupList = [];
         this.storageName = 'TasksDB';
+        this.groupList = [];
     }
 
     ngOnInit() {
         if (LocalStorageService.checkData(this.storageName) === false) {
             this.initializationService.getInitialData()
                 .subscribe(
-                    (data: Array<Group>) => {
+                    (data: Array<GroupItem>) => {
                         LocalStorageService.setData('TasksDB', data);
                         this.updateGroupList();
                     },
-                    (error: ErrorResponse) => {
+                    (error: HttpErrorResponse) => {
+                        alert(`Status: ${error.status}\nMessage: ${error.message}`);
                         console.log(error);
                     }
                 );
@@ -38,37 +38,28 @@ export class GroupListComponent implements OnInit {
         this.updateGroupList();
     }
 
-    public openDialog(): void {
+    public openDialog(isEdit: boolean, group?: GroupItem): void {
         const dialogRef = this.dialog.open(GroupEditComponent, {
             width: '300px',
-            data: {name, isEdit: false}
+            data: {group: isEdit ? group : null, isEdit}
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.groupList.push({
-                    id: new Date().getTime(),
-                    name: result,
-                    tasks: []
-                });
+                if (isEdit) {
+                    this.groupList[this.findTaskIndex(result.id)] = result;
+                } else {
+                    this.groupList.push(result);
+                }
                 this.updateLocalStorageData();
             }
         });
     }
 
-    public changeGroup(parameters: ParametersGroup): void {
+    public changeGroup(parameters: ParametersEditing): void {
+        const index: number = this.findTaskIndex(parameters.id);
         switch (parameters.action) {
             case 'edit': {
-                this.nameGroup = this.groupList[this.findTaskIndex(parameters.id)].name;
-                const dialogRef = this.dialog.open(GroupEditComponent, {
-                    width: '300px',
-                    data: {name: this.nameGroup, isEdit: true}
-                });
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result) {
-                        this.groupList[this.findTaskIndex(parameters.id)].name = result;
-                        this.updateLocalStorageData();
-                    }
-                });
+                this.openDialog(true, this.groupList[index]);
                 break;
             }
             case 'remove': {

@@ -1,18 +1,15 @@
-<mat-card class="list-item">
-    <mat-checkbox></mat-checkbox>
-    <span *ngIf="true" [ngClass]="{completed: false}" class="text-item">Edit task</span>
-    <mat-form-field *ngIf="false" class="text-item">
-        <input #editInput matInput placeholder="Edit task">
-    </mat-form-field>
+<mat-card [ngClass]="{inactive: inActive}" class="list-item">
+    <mat-checkbox (change)="editTask('changeStatus')" [(ngModel)]="!task.active"></mat-checkbox>
+    <div class="container-text">
+        <span [ngClass]="{inactive: inActive}" class="date-item">{{ task.deadline | date:'EEEE, MMMM d, y, HH:mm':'en-US' }}</span>
+        <span [ngClass]="{completed: !task.active}" class="text-item">{{ task.text }}</span>
+    </div>
     <span class="container-button">
-            <button *ngIf="true" class="control-button" color="primary" mat-icon-button>
-                <mat-icon>create</mat-icon>
-            </button>
-            <button *ngIf="false" class="control-button" color="accent" mat-icon-button>
-                <mat-icon>check</mat-icon>
-            </button>
-            <button class="control-button" color="warn" mat-icon-button>
-                <mat-icon>clear</mat-icon>
-            </button>
-        </span>
+        <button (click)="editTask('editData')" class="control-button" color="primary" mat-icon-button>
+            <mat-icon>create</mat-icon>
+        </button>
+        <button (click)="editTask('removeTask')" class="control-button" color="warn" mat-icon-button>
+            <mat-icon>clear</mat-icon>
+        </button>
+    </span>
 </mat-card>

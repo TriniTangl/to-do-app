@@ -2,13 +2,6 @@ mat-card {
     &.group-card {
         width: calc(100% - 16px * 2 - 10px * 2);
         margin: 10px;
-        cursor: pointer;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -webkit-user-select: none;
-        user-select: none;
-        -webkit-user-drag: none;
-        -webkit-tap-highlight-color: transparent;
 
         mat-card-title {
             width: 145px;
