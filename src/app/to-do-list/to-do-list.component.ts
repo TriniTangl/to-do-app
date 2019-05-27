@@ -35,13 +35,9 @@ export class ToDoListComponent implements OnInit {
 
     ngOnInit() {
         this.updateGroupList();
-        if (this.groupList.length > 0) {
-            this.groupId = Number(this.activatedRoute.snapshot.params.id);
-            this.group = this.groupList[this.findArrayIndex(this.groupList, this.groupId)];
-            this.updateRenderList();
-        } else {
-            this.router.navigate(['/groups']);
-        }
+        this.groupId = Number(this.activatedRoute.snapshot.params.id);
+        this.group = this.groupList[this.findArrayIndex(this.groupList, this.groupId)];
+        this.updateRenderList();
     }
 
     public editTaskList(parameters: ActionParameters) {
