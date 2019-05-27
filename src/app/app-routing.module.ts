@@ -5,9 +5,9 @@ import {ToDoListComponent} from './to-do-list/to-do-list.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 
 const routes: Routes = [
-    {path: 'groups', component: GroupListComponent},
-    {path: 'groups/:id', component: ToDoListComponent},
-    {path: '**', component: NotFoundComponent}
+{path: 'groups', component: GroupListComponent},
+{path: 'groups/:id', component: ToDoListComponent},
+{path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({
