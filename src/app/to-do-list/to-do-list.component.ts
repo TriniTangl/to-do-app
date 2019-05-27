@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatCheckbox, MatCheckboxChange, MatDialog} from '@angular/material';
 import {LocalStorageService} from '../services/local-storage.service';
 import {ToDoEditComponent} from '../to-do-edit/to-do-edit.component';
-import {FilterStatus, GroupItem, ParametersEditing, ToDoItem} from '../interfaces';
+import {ActionParameters, FilterStatus, GroupItem, ToDoItem} from '../interfaces';
 
 @Component({
     selector: 'app-to-do-list',
@@ -16,7 +16,7 @@ export class ToDoListComponent implements OnInit {
     public group: GroupItem;
     public renderList: Array<ToDoItem>;
     public filters: FilterStatus;
-    private idGroup: number;
+    private groupId: number;
     private readonly storageName: string;
 
     constructor(
@@ -36,15 +36,15 @@ export class ToDoListComponent implements OnInit {
     ngOnInit() {
         this.updateGroupList();
         if (this.groupList.length > 0) {
-            this.idGroup = Number(this.activatedRoute.snapshot.params.id);
-            this.group = this.groupList[this.findArrayIndex(this.groupList, this.idGroup)];
+            this.groupId = Number(this.activatedRoute.snapshot.params.id);
+            this.group = this.groupList[this.findArrayIndex(this.groupList, this.groupId)];
             this.updateRenderList();
         } else {
             this.router.navigate(['/groups']);
         }
     }
 
-    public editTaskList(parameters: ParametersEditing) {
+    public editTaskList(parameters: ActionParameters) {
         const index: number = this.findArrayIndex(this.group.tasks, parameters.id);
         switch (parameters.action) {
             case 'changeStatus': {
@@ -96,7 +96,8 @@ export class ToDoListComponent implements OnInit {
             case 'today': {
                 const nowDate = new Date().getTime();
                 this.renderList = this.group.tasks.filter(item => {
-                    return ((item.deadline - nowDate) >= 0) && ((item.deadline - nowDate) < 86400000);
+                    return (item.deadline - nowDate) >= 0 && (item.deadline - nowDate) < 24 * 60 * 60 * 100;
+                    // 24 hours * 60 minutes * 60 seconds * 100 milliseconds
                 });
                 this.filters.today = true;
                 break;
@@ -148,7 +149,7 @@ export class ToDoListComponent implements OnInit {
     }
 
     private updateLocalStorageData(): void {
-        this.groupList[this.findArrayIndex(this.groupList, this.idGroup)] = this.group;
+        this.groupList[this.findArrayIndex(this.groupList, this.groupId)] = this.group;
         LocalStorageService.setData(this.storageName, this.groupList);
     }
 

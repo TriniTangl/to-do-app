@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material';
 import {InitializationService} from '../services/initialization.service';
 import {LocalStorageService} from '../services/local-storage.service';
 import {GroupEditComponent} from '../group-edit/group-edit.component';
-import {GroupItem, HttpErrorResponse, ParametersEditing} from '../interfaces';
+import {GroupItem, HttpErrorResponse, ActionParameters} from '../interfaces';
 
 @Component({
     selector: 'app-group-list',
@@ -45,7 +45,7 @@ export class GroupListComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 if (group) {
-                    this.groupList[this.findTaskIndex(result.id)] = result;
+                    this.groupList[this.findGroupIndex(result.id)] = result;
                 } else {
                     this.groupList.push(result);
                 }
@@ -54,15 +54,15 @@ export class GroupListComponent implements OnInit {
         });
     }
 
-    public changeGroup(parameters: ParametersEditing): void {
-        const index: number = this.findTaskIndex(parameters.id);
+    public changeGroup(parameters: ActionParameters): void {
+        const index: number = this.findGroupIndex(parameters.id);
         switch (parameters.action) {
             case 'edit': {
                 this.openDialog(this.groupList[index]);
                 break;
             }
             case 'remove': {
-                this.groupList.splice(this.findTaskIndex(parameters.id), 1);
+                this.groupList.splice(index, 1);
                 this.updateLocalStorageData();
                 break;
             }
@@ -82,7 +82,7 @@ export class GroupListComponent implements OnInit {
         LocalStorageService.setData(this.storageName, this.groupList);
     }
 
-    private findTaskIndex(id: number): number {
+    private findGroupIndex(id: number): number {
         return this.groupList.findIndex(item => item.id === id);
     }
 }

@@ -16,31 +16,33 @@ export class GroupEditComponent implements OnInit {
         private dialogRef: MatDialogRef<GroupEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData) {
         this.groupForm = new FormGroup({
-            nameGroup: new FormControl('', Validators.required)
+            groupName: new FormControl('', Validators.required)
         });
     }
 
     ngOnInit() {
-        this.dialogParameters = this.data.group ? {
-            title: 'Edit group',
-            labels: ['Name of group'],
-            button: 'Save'
-        } : this.dialogParameters = {
-            title: 'New group',
-            labels: ['Name of new group'],
-            button: 'Create'
-        };
         if (this.data.group) {
             this.groupForm.setValue({
-                nameGroup: this.data.group.name
+                groupName: this.data.group.name
             });
+            this.dialogParameters = {
+                title: 'Edit group',
+                labels: ['Name of group'],
+                button: 'Save'
+            };
+        } else {
+            this.dialogParameters = this.dialogParameters = {
+                title: 'New group',
+                labels: ['Name of new group'],
+                button: 'Create'
+            };
         }
     }
 
     public createResponse(): GroupItem {
         return {
             id: this.data.group ? this.data.group.id : new Date().getTime(),
-            name: this.groupForm.value.nameGroup,
+            name: this.groupForm.value.groupName,
             tasks: this.data.group ? this.data.group.tasks : []
         };
     }

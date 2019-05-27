@@ -10,7 +10,6 @@ export class InitializationService {
     constructor(private http: HttpClient) { }
 
     public getInitialData(): any {
-        const data = this.http.get(this.dataLink, {});
-        return data;
+        return this.http.get(this.dataLink, {});
     }
 }

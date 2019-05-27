@@ -3,8 +3,8 @@
     <div mat-dialog-content>
         <mat-form-field appearance="outline" class="input-task">
             <mat-label>{{ dialogParameters.labels[0] }}</mat-label>
-            <input formControlName="nameGroup" matInput name="text-new-task">
-            <mat-hint *ngIf="groupForm.controls['nameGroup'].invalid && groupForm.controls['nameGroup'].touched"
+            <input formControlName="groupName" matInput name="text-new-task">
+            <mat-hint *ngIf="groupForm.controls['groupName'].invalid && groupForm.controls['groupName'].touched"
                       class="error">Please enter the name
             </mat-hint>
         </mat-form-field>

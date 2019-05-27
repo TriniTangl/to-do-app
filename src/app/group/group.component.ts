@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GroupItem, ParametersEditing} from '../interfaces';
+import {GroupItem, ActionParameters} from '../interfaces';
 
 @Component({
     selector: 'app-group',
@@ -8,7 +8,7 @@ import {GroupItem, ParametersEditing} from '../interfaces';
 })
 export class GroupComponent implements OnInit {
     @Input() group: GroupItem;
-    @Output() changeGroupEmitter = new EventEmitter<ParametersEditing>();
+    @Output() changeGroupEmitter = new EventEmitter<ActionParameters>();
     public allCounter: number;
     public activeCounter: number;
     public completedCounter: number;

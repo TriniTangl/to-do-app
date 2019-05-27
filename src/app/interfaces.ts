@@ -16,7 +16,7 @@ export interface HttpErrorResponse {
     message: string;
 }
 
-export interface ParametersEditing {
+export interface ActionParameters {
     action: string;
     id: number;
 }

@@ -1,7 +1,7 @@
-<mat-card [ngClass]="{inactive: inActive}" class="list-item">
+<mat-card [ngClass]="{inactive: inactive}" class="list-item">
     <mat-checkbox (change)="editTask('changeStatus')" [(ngModel)]="!task.active"></mat-checkbox>
     <div class="container-text">
-        <span [ngClass]="{inactive: inActive}" class="date-item">{{ task.deadline | date:'EEEE, MMMM d, y, HH:mm':'en-US' }}</span>
+        <span [ngClass]="{inactive: inactive}" class="date-item">{{ task.deadline | date:'EEEE, MMMM d, y, HH:mm':'en-US' }}</span>
         <span [ngClass]="{completed: !task.active}" class="text-item">{{ task.text }}</span>
     </div>
     <span class="container-button">

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ParametersEditing, ToDoItem} from '../interfaces';
+import {ActionParameters, ToDoItem} from '../interfaces';
 
 @Component({
     selector: 'app-to-do',
@@ -8,15 +8,15 @@ import {ParametersEditing, ToDoItem} from '../interfaces';
 })
 export class ToDoComponent implements OnInit {
     @Input() task: ToDoItem;
-    @Output() editTaskEmitter = new EventEmitter<ParametersEditing>();
-    public inActive: boolean;
+    @Output() editTaskEmitter = new EventEmitter<ActionParameters>();
+    public inactive: boolean;
 
     constructor() {
-        this.inActive = false;
+        this.inactive = false;
     }
 
     ngOnInit() {
-        this.inActive = new Date().getTime() > this.task.deadline;
+        this.inactive = new Date().getTime() > this.task.deadline;
     }
 
     public editTask(action: string): void {
