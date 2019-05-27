@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 import {LocalStorageService} from '../services/local-storage.service';
-import {GroupItem} from '../interfaces';
+import {InitializationService} from '../services/initialization.service';
+import {GroupItem, HttpErrorResponse} from '../interfaces';
 
 @Injectable({
     providedIn: 'root'
@@ -10,18 +11,29 @@ import {GroupItem} from '../interfaces';
 export class ToDoGuard implements CanActivate {
     private readonly storageName: string;
 
-    constructor(private router: Router) {
+    constructor(
+        private router: Router,
+        private initializationService: InitializationService) {
         this.storageName = 'TasksDB';
     }
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        const groups: Array<GroupItem> = LocalStorageService.getData(this.storageName);
-        if (Boolean(groups) === false) {
-            this.router.navigate(['/groups']);
-            return false;
-        } else if (Boolean(groups[groups.findIndex(item => item.id === route.params.id)])) {
+        let groups: Array<GroupItem>;
+        if (LocalStorageService.checkData(this.storageName) === false) {
+            this.initializationService.getInitialData()
+                .subscribe(
+                    (data: Array<GroupItem>) => {
+                        LocalStorageService.setData(this.storageName, data);
+                    },
+                    (error: HttpErrorResponse) => {
+                        console.error(`Status: ${error.status}\nMessage: ${error.message}`);
+                    }
+                );
+        }
+        groups = LocalStorageService.getData(this.storageName);
+        if (Boolean(groups[groups.findIndex(item => item.id === Number(route.params.id))])) {
             return true;
         } else {
             this.router.navigate(['/404']);
