@@ -28,9 +28,6 @@ export class GroupListComponent implements OnInit {
                     (data: Array<GroupItem>) => {
                         LocalStorageService.setData(this.storageName, data);
                         this.updateGroupList();
-                    },
-                    (error: HttpErrorResponse) => {
-                        console.error(`Status: ${error.status}\nMessage: ${error.message}`);
                     }
                 );
         }
