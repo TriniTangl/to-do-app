@@ -26,15 +26,15 @@ export class ToDoGuard implements CanActivate {
                 .pipe(
                     map(data => {
                         LocalStorageService.setData(this.storageName, data);
-                        return this.checkAccess(data, route.params.id);
+                        return this.groupExists(data, route.params.id);
                     })
                 );
         } else {
-            return this.checkAccess(LocalStorageService.getData(this.storageName), route.params.id);
+            return this.groupExists(LocalStorageService.getData(this.storageName), route.params.id);
         }
     }
 
-    private checkAccess(groupList: Array<GroupItem>, groupId: number): boolean {
+    private groupExists(groupList: Array<GroupItem>, groupId: number): boolean {
         if (groupList.findIndex(item => item.id === groupId) > -1) {
             return true;
         } else {
