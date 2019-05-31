@@ -26,7 +26,7 @@ export class ToDoGuard implements CanActivate {
                 .pipe(
                     map(data => {
                         LocalStorageService.setData(this.storageName, data);
-                        return this.checkAccess(LocalStorageService.getData(this.storageName), route.params.id);
+                        return this.checkAccess(data, route.params.id);
                     })
                 );
         } else {
@@ -35,7 +35,7 @@ export class ToDoGuard implements CanActivate {
     }
 
     private checkAccess(groupList: Array<GroupItem>, groupId: number): boolean {
-        if (groupList.findIndex(item => item.id === groupId)) {
+        if (groupList.findIndex(item => item.id === groupId) > -1) {
             return true;
         } else {
             this.router.navigate(['/404']);
