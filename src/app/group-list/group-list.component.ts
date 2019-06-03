@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material';
 import {InitializationService} from '../services/initialization.service';
 import {LocalStorageService} from '../services/local-storage.service';
 import {GroupEditComponent} from '../group-edit/group-edit.component';
-import {GroupItem, HttpErrorResponse, ActionParameters} from '../interfaces';
+import {ActionParameters, GroupItem} from '../interfaces';
 
 @Component({
     selector: 'app-group-list',
@@ -22,15 +22,10 @@ export class GroupListComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (LocalStorageService.checkData(this.storageName) === false) {
-            this.initializationService.getInitialData()
-                .subscribe(
-                    (data: Array<GroupItem>) => {
-                        LocalStorageService.setData(this.storageName, data);
-                        this.updateGroupList();
-                    }
-                );
-        }
+        this.initializationService.initializeData()
+            .subscribe(
+                () => this.updateGroupList()
+            );
         this.updateGroupList();
     }
 
