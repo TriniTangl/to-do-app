@@ -7,8 +7,8 @@ import {GroupItem, ActionParameters} from '../interfaces';
     styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
-    @Input() group: GroupItem;
-    @Output() changeGroupEmitter = new EventEmitter<ActionParameters>();
+    @Input() public group: GroupItem;
+    @Output() public changeGroupEmitter = new EventEmitter<ActionParameters>();
     public allCounter: number;
     public activeCounter: number;
     public completedCounter: number;

@@ -12,12 +12,11 @@ import {ActionParameters, GroupItem} from '../interfaces';
 })
 export class GroupListComponent implements OnInit {
     public groupList: Array<GroupItem>;
-    private readonly storageName: string;
 
     constructor(
+        private localStorageService: LocalStorageService,
         private initializationService: InitializationService,
         private dialog: MatDialog) {
-        this.storageName = 'TasksDB';
         this.groupList = [];
     }
 
@@ -65,13 +64,13 @@ export class GroupListComponent implements OnInit {
     }
 
     private updateGroupList(): void {
-        if (LocalStorageService.checkData(this.storageName)) {
-            this.groupList = LocalStorageService.getData(this.storageName);
+        if (this.localStorageService.checkData()) {
+            this.groupList = this.localStorageService.getData();
         }
     }
 
     private updateLocalStorageData(): void {
-        LocalStorageService.setData(this.storageName, this.groupList);
+        this.localStorageService.setData(this.groupList);
     }
 
     private findGroupIndex(id: number): number {

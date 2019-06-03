@@ -20,6 +20,7 @@ export class ToDoListComponent implements OnInit {
     private readonly storageName: string;
 
     constructor(
+        private localStorageService: LocalStorageService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private dialog: MatDialog) {
@@ -92,8 +93,8 @@ export class ToDoListComponent implements OnInit {
             case 'today': {
                 const nowDate = new Date().getTime();
                 this.renderList = this.group.tasks.filter(item => {
-                    return (item.deadline - nowDate) >= 0 && (item.deadline - nowDate) < 24 * 60 * 60 * 100;
                     // 24 hours * 60 minutes * 60 seconds * 100 milliseconds
+                    return (item.deadline - nowDate) >= 0 && (item.deadline - nowDate) < 24 * 60 * 60 * 100;
                 });
                 this.filters.today = true;
                 break;
@@ -139,14 +140,14 @@ export class ToDoListComponent implements OnInit {
     }
 
     private updateGroupList(): void {
-        if (LocalStorageService.checkData(this.storageName)) {
-            this.groupList = LocalStorageService.getData(this.storageName);
+        if (this.localStorageService.checkData()) {
+            this.groupList = this.localStorageService.getData();
         }
     }
 
     private updateLocalStorageData(): void {
         this.groupList[this.findArrayIndex(this.groupList, this.groupId)] = this.group;
-        LocalStorageService.setData(this.storageName, this.groupList);
+        this.localStorageService.setData(this.groupList);
     }
 
     private updateRenderList(): void {
@@ -161,8 +162,8 @@ export class ToDoListComponent implements OnInit {
         }
     }
 
-    private findArrayIndex(object: Array<any>, id: number): number {
-        return object.findIndex(item => item.id === id);
+    private findArrayIndex(array: Array<any>, id: number): number {
+        return array.findIndex(item => item.id === id);
     }
 
     private setDefaultFilterStatus(isReset: boolean): void {

@@ -4,21 +4,25 @@ import {Injectable} from '@angular/core';
     providedIn: 'root'
 })
 export class LocalStorageService {
-    constructor() { }
+    private readonly storageName: string;
 
-    public static getData(name: string): any {
-        return JSON.parse(localStorage.getItem(name));
+    constructor() {
+        this.storageName = 'TasksDB';
     }
 
-    public static setData(name: string, data: any): void {
-        localStorage.setItem(name, JSON.stringify(data));
+    public getData(): any {
+        return JSON.parse(localStorage.getItem(this.storageName));
     }
 
-    public static clearData(name: string): void {
-        localStorage.removeItem(name);
+    public setData(data: any): void {
+        localStorage.setItem(this.storageName, JSON.stringify(data));
     }
 
-    public static checkData(name: string): boolean {
-        return Boolean(localStorage.getItem(name));
+    public clearData(): void {
+        localStorage.removeItem(this.storageName);
+    }
+
+    public checkData(): boolean {
+        return Boolean(localStorage.getItem(this.storageName));
     }
 }

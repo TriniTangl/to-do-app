@@ -12,8 +12,9 @@ export class ToDoGuard implements CanActivate {
     private readonly storageName: string;
 
     constructor(
-        private router: Router,
-        private initializationService: InitializationService) {
+        private localStorageService: LocalStorageService,
+        private initializationService: InitializationService,
+        private router: Router) {
         this.storageName = 'TasksDB';
     }
 
@@ -23,7 +24,7 @@ export class ToDoGuard implements CanActivate {
         return this.initializationService.initializeData()
             .pipe(
                 map(() => {
-                    if (LocalStorageService.getData(this.storageName).findIndex(item => item.id === Number(route.params.id)) > -1) {
+                    if (this.localStorageService.getData().findIndex(item => item.id === Number(route.params.id)) > -1) {
                         return true;
                     } else {
                         this.router.navigate(['/404']);

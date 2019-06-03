@@ -7,8 +7,8 @@ import {ActionParameters, ToDoItem} from '../interfaces';
     styleUrls: ['./to-do.component.scss']
 })
 export class ToDoComponent implements OnInit {
-    @Input() task: ToDoItem;
-    @Output() editTaskEmitter = new EventEmitter<ActionParameters>();
+    @Input() public task: ToDoItem;
+    @Output() public editTaskEmitter = new EventEmitter<ActionParameters>();
     public inactive: boolean;
 
     constructor() {

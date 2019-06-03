@@ -11,21 +11,22 @@ import {LocalStorageService} from './local-storage.service';
 })
 export class InitializationService {
     private readonly dataLink: string;
-    private readonly storageName: string;
 
     constructor(
+        private localStorageService: LocalStorageService,
         private http: HttpClient,
         private router: Router) {
-        this.storageName = 'TasksDB';
         this.dataLink = '/assets/api/tasks.json';
     }
 
     public initializeData(): Observable<any> {
-        if (LocalStorageService.checkData(this.storageName) === false) {
+        if (this.localStorageService.checkData()) {
+            return of({});
+        } else {
             return this.http.get(this.dataLink, {})
                 .pipe(
                     map((response: Array<GroupItem>) => {
-                        LocalStorageService.setData(this.storageName, response);
+                        this.localStorageService.setData(response);
                     }),
                     catchError((error: HttpErrorResponse | any) => {
                         console.error(`Status: ${error.status}\nMessage: ${error.message}`);
@@ -33,8 +34,6 @@ export class InitializationService {
                         return throwError(error);
                     })
                 );
-        } else {
-            return of({});
         }
     }
 }

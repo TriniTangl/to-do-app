@@ -6,7 +6,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
     styleUrls: ['./floating-button.component.scss']
 })
 export class FloatingButtonComponent implements OnInit {
-    @Output() clickEmitter = new EventEmitter();
+    @Output() public clickEmitter = new EventEmitter();
 
     constructor() { }
 
