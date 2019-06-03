@@ -91,10 +91,12 @@ export class ToDoListComponent implements OnInit {
                 break;
             }
             case 'today': {
-                const nowDate = new Date().getTime();
+                const nowDate = new Date();
                 this.renderList = this.group.tasks.filter(item => {
-                    // 24 hours * 60 minutes * 60 seconds * 100 milliseconds
-                    return (item.deadline - nowDate) >= 0 && (item.deadline - nowDate) < 24 * 60 * 60 * 100;
+                    const deadlineDate = new Date(item.deadline);
+                    return deadlineDate.getFullYear() === nowDate.getFullYear() &&
+                        deadlineDate.getMonth() === nowDate.getMonth() &&
+                        deadlineDate.getDate() === nowDate.getDate();
                 });
                 this.filters.today = true;
                 break;
@@ -117,11 +119,15 @@ export class ToDoListComponent implements OnInit {
     }
 
     public clearCompletedTasks(): void {
-        this.renderList.forEach((item: ToDoItem) => {
+        console.log(this.renderList);
+        const temp = this.renderList;
+        temp.forEach((item: ToDoItem) => {
             if (item.active === false) {
+                console.log(item);
                 this.group.tasks.splice(this.findArrayIndex(this.group.tasks, item.id), 1);
             }
         });
+        this.renderList = temp;
         this.updateRenderList();
         this.updateLocalStorageData();
     }
